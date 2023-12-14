@@ -35,7 +35,7 @@ jobs:
     
     steps:
     - name: Deploy to Netlify
-      uses: netlify/actions/cli@latest
+      uses: netlify/actions/cli@v2.5.1
       with:
         args: deploy --prod
       env:
