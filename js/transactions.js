@@ -24,42 +24,57 @@ function addTransaction(name, amount, type) {
     updateTransactionList();
 }
 
-// Function to update the transaction list in the UI
+// Function to update income and expense lists in the UI with sorting and filtering options
 function updateTransactionList() {
     const transactions = getTransactionsFromLocalStorage();
-    
-    const incomeListContainer = document.getElementById("incomeList");
-    const expenseListContainer = document.getElementById("expenseList");
+    const sortOption = document.getElementById('sortOption');
+    const filterOption = document.getElementById('filterOption');
 
-    if (!incomeListContainer || !expenseListContainer) {
-        console.error("Error: Transaction list container not found.");
-        return;
+    if (sortOption && filterOption)
+    {
+            // Apply sorting and filtering based on user choices
+        const filteredTransactions = transactions.filter(transaction => {
+            if (filterOption.value === 'all') {
+                return true; // Show all transactions
+            } else {
+                return transaction.type === filterOption.value;
+            }
+        });
+
+        const sortedTransactions = sortTransactions(filteredTransactions, sortOption.value);
+
+        const transactionListContainer = document.getElementById('transactionList');
+
+        if (!transactionListContainer) {
+            console.error("Error: Transaction list container not found.");
+            return;
+        }
+
+        transactionListContainer.innerHTML = '';
+
+        sortedTransactions.forEach((transaction, index) => {
+            const listItem = document.createElement('div');
+            listItem.innerHTML = `
+                <span>${transaction.name}</span>
+                <span>${transaction.amount}</span>
+                <span>${transaction.type}</span>
+                <button onclick="deleteTransaction(${index})">Delete</button>
+            `;
+            transactionListContainer.appendChild(listItem);
+        });
     }
 
-    incomeListContainer.innerHTML = '';
-    expenseListContainer.innerHTML = '';
 
-    transactions.forEach((transaction, index) => {
-        const listItem = document.createElement('div');
-        listItem.innerHTML = `
-            <span>${transaction.name}</span>
-            <span>${transaction.amount}</span>
-            <span>${transaction.type}</span>
-            <button onclick="deleteTransaction(${index})">Delete</button>
-        `;
-        
-        // Categorize transactions into income and expense lists
-        if (transaction.type === "income")
-        {
-            incomeListContainer.appendChild(listItem);
-        }
-        else if (transaction.type === 'expense')
-        {
-            expenseListContainer.appendChild(listItem);
-        }
-    });
 }
 
+// Function to sort transactions based on the selected option
+function sortTransactions(transactions, sortOption) {
+    if (sortOption === 'amount') {
+        return transactions.slice().sort((a, b) => a.amount - b.amount);
+    } else {
+        return transactions; // Default order or other sorting options
+    }
+}
 // Function to delete a transaction
 function deleteTransaction(index) {
     const transactions = getTransactionsFromLocalStorage();

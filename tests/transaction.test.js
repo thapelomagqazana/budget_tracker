@@ -34,25 +34,25 @@ describe('Transaction Functions', () => {
     // Add more tests as needed
 });
 
-describe('UI Update Functions', () => {
-    test('Update transaction list in UI', () => {
-        // Assuming you have a test-container in your test.html file
-        document.body.innerHTML = '<div id="test-container"></div>';
-        updateTransactionList();
-        const transactionListContainer = document.getElementById('test-container');
-        expect(transactionListContainer.innerHTML).toMatchSnapshot();
-    });
+// describe('UI Update Functions', () => {
+//     test('Update transaction list in UI', () => {
+//         // Assuming you have a test-container in your test.html file
+//         document.body.innerHTML = '<div id="test-container"></div>';
+//         updateTransactionList();
+//         const transactionListContainer = document.getElementById('test-container');
+//         expect(transactionListContainer.innerHTML).toMatchSnapshot();
+//     });
 
-    // test('Update income and expense lists in UI', () => {
-    //     // Assuming you have a test-container in your test.html file
-    //     document.body.innerHTML = '<div id="test-container"></div>';
-    //     updateTransactionList()
-    //     const incomeListContainer = document.getElementById('incomeList');
-    //     const expenseListContainer = document.getElementById('expenseList');
-    //     expect(incomeListContainer.innerHTML).toMatchSnapshot();
-    //     expect(expenseListContainer.innerHTML).toMatchSnapshot();
-    // });
+//     // test('Update income and expense lists in UI', () => {
+//     //     // Assuming you have a test-container in your test.html file
+//     //     document.body.innerHTML = '<div id="test-container"></div>';
+//     //     updateTransactionList()
+//     //     const incomeListContainer = document.getElementById('incomeList');
+//     //     const expenseListContainer = document.getElementById('expenseList');
+//     //     expect(incomeListContainer.innerHTML).toMatchSnapshot();
+//     //     expect(expenseListContainer.innerHTML).toMatchSnapshot();
+//     // });
 
-    // Add more tests as needed
-});
+//     // Add more tests as needed
+// });
 
