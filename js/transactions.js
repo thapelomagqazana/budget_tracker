@@ -75,9 +75,23 @@ function sortTransactions(transactions, sortOption) {
         return transactions; // Default order or other sorting options
     }
 }
-// Function to delete a transaction
+// Function to delete a transaction by index
 function deleteTransaction(index) {
     const transactions = getTransactionsFromLocalStorage();
+
+    if (index < 0 || index >= transactions.length)
+    {
+        console.error("Error: Invalid index for deletion.");
+        return;
+    }
+
+    // Display a confirmation dialog
+    const confirmDelete = confirm("Are you sure you want to delete this transaction?");
+    if (!confirmDelete)
+    {
+        return; // User canceled the delete operation
+    }
+
     transactions.splice(index, 1);
     saveTransactionsToLocalStorage(transactions);
     updateTransactionList();

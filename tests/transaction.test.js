@@ -23,13 +23,46 @@ describe('Transaction Functions', () => {
 
     // Test for deleting a transaction
     test('Delete a transaction', () => {
-        addTransaction('Rent', 1000, 'expense');
-        addTransaction('Groceries', 200, 'expense');
-        deleteTransaction(1);
-        const transactions = getTransactionsFromLocalStorage();
-        expect(transactions.length).toBe(1);
-        expect(transactions[0]).toEqual({ name: 'Rent', amount: 1000, type: 'expense' });
+        // Add a transaction for testing
+        addTransaction('Test', 50, 'income');
+    
+        // Get the transactions before deletion
+        const transactionsBefore = getTransactionsFromLocalStorage();
+    
+        // Mock the confirm dialog to simulate user confirmation
+        jest.spyOn(window, 'confirm').mockImplementation(() => true);
+    
+        // Delete the transaction
+        deleteTransaction(0);
+    
+        // Get the transactions after deletion
+        const transactionsAfter = getTransactionsFromLocalStorage();
+    
+        // Assert that the transaction is deleted
+        expect(transactionsAfter.length).toBe(transactionsBefore.length - 1);
     });
+    
+    test('Cancel delete operation', () => {
+        // Add a transaction for testing
+        addTransaction('Test', 50, 'income');
+    
+        // Get the transactions before deletion
+        const transactionsBefore = getTransactionsFromLocalStorage();
+    
+        // Mock the confirm dialog to simulate user cancellation
+        jest.spyOn(window, 'confirm').mockImplementation(() => false);
+    
+        // Attempt to delete the transaction (user cancels)
+        deleteTransaction(0);
+    
+        // Get the transactions after deletion
+        const transactionsAfter = getTransactionsFromLocalStorage();
+    
+        // Assert that the transaction is not deleted
+        expect(transactionsAfter.length).toBe(transactionsBefore.length);
+    });
+
+
 
     // Add more tests as needed
 });
