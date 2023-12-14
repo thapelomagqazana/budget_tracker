@@ -1,5 +1,8 @@
 // app.js
 
+// Import your CSS file
+// import 'budget_tracker/css/styles.css';
+
 // Import necessary modules or files
 import { getTransactionsFromLocalStorage, saveTransactionsToLocalStorage, addTransaction, deleteTransaction } from './transactions';
 
