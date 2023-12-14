@@ -29,6 +29,12 @@ jobs:
     - name: Run Tests
       run: npm test
 
+    - name: Install Webpack
+      run: npm install webpack webpack-cli --save-dev
+
+    - name: Build with Webpack
+      run: npx webpack
+
   deploy:
     runs-on: ubuntu-latest
 
