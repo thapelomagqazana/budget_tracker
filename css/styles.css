@@ -60,3 +60,11 @@ button {
 button:hover {
     background-color: #d32f2f;
 }
+
+#incomeList,
+#expenseList {
+    max-height: 200px; /* Set a maximum height for the lists */
+    overflow-y: auto; /* Enable vertical scrolling if the content overflows */
+    border: 1px solid #ccc; /* Add a border for better visibility */
+    margin-bottom: 10px; /* Add some margin to separate the lists */
+}

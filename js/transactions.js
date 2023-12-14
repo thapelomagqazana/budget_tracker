@@ -27,14 +27,17 @@ function addTransaction(name, amount, type) {
 // Function to update the transaction list in the UI
 function updateTransactionList() {
     const transactions = getTransactionsFromLocalStorage();
-    const transactionListContainer = document.getElementById('transactionList');
+    
+    const incomeListContainer = document.getElementById("incomeList");
+    const expenseListContainer = document.getElementById("expenseList");
 
-    if (!transactionListContainer) {
+    if (!incomeListContainer || !expenseListContainer) {
         console.error("Error: Transaction list container not found.");
         return;
     }
 
-    transactionListContainer.innerHTML = '';
+    incomeListContainer.innerHTML = '';
+    expenseListContainer.innerHTML = '';
 
     transactions.forEach((transaction, index) => {
         const listItem = document.createElement('div');
@@ -44,7 +47,16 @@ function updateTransactionList() {
             <span>${transaction.type}</span>
             <button onclick="deleteTransaction(${index})">Delete</button>
         `;
-        transactionListContainer.appendChild(listItem);
+        
+        // Categorize transactions into income and expense lists
+        if (transaction.type === "income")
+        {
+            incomeListContainer.appendChild(listItem);
+        }
+        else if (transaction.type === 'expense')
+        {
+            expenseListContainer.appendChild(listItem);
+        }
     });
 }
 
@@ -58,15 +70,11 @@ function deleteTransaction(index) {
 
 // Function to handle form submission
 function handleFormSubmit(event) {
-    console.log('Form submitted');
     event.preventDefault();
 
     const transactionName = document.getElementById("transactionName").value;
     const transactionAmount = parseFloat(document.getElementById('transactionAmount').value);
     const transactionType = document.getElementById('transactionType').value;
-    console.log(transactionName);
-    console.log(transactionAmount);
-    console.log(transactionType);
 
     addTransaction(transactionName, transactionAmount, transactionType);
     document.getElementById('transactionForm').reset();
@@ -83,7 +91,7 @@ if (transactionForm) {
     transactionForm.addEventListener('submit', handleFormSubmit);
 }
 
-// Export core functionality
+// Export for Node.js environment
 module.exports = {
     addTransaction,
     deleteTransaction,
