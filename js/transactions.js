@@ -1,8 +1,3 @@
-// transactions.js
-
-// Import your CSS file
-// import './styles.css';
-
 
 // Function to get transactions from localStorage
 function getTransactionsFromLocalStorage() {
@@ -96,10 +91,3 @@ module.exports = {
     getTransactionsFromLocalStorage,
     saveTransactionsToLocalStorage,
 };
-
-// Attach functions to the global window object in a browser environment
-// if (typeof window !== 'undefined') {
-//     window.addTransaction = addTransaction;
-//     window.deleteTransaction = deleteTransaction;
-//     window.updateTransactionList = updateTransactionList;
-// }
