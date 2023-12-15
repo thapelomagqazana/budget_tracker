@@ -2,9 +2,7 @@
 const {
     addTransaction,
     deleteTransaction,
-    updateTransactionList,
     getTransactionsFromLocalStorage,
-    saveTransactionsToLocalStorage,
 } = require('../js/transactions');
 
 describe('Transaction Functions', () => {

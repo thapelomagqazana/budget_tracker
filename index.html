@@ -10,6 +10,8 @@
     <div id="app">
         <h1>Budget Tracker</h1>
 
+
+
         <!-- Form for adding transactions -->
         <form id="transactionForm">
             <!-- Input fields for transaction details -->
@@ -50,12 +52,20 @@
 
 
         </form>
-
     </div>
+    <!-- Display statistics -->
+    <div id="statistics">
+        <h2>Total Income: <span id="totalIncome">0</span></h2>
+        <h2>Total Expenses: <span id="totalExpenses">0</span></h2>
+        <h2>Overall Budget: <span id="overallBudget">0</span></h2>
+    </div>
+
+    
     <!-- Your HTML content goes here -->
-    <!-- <script src="js/storage.js"></script> -->
+    <script src="js/storage.js"></script>
+    <script src="js/statistics.js"></script>
     <script src="js/transactions.js"></script>
-    <!-- <script src="js/app.js"></script> -->
+    
     <!-- <script src="bundle.js"></script> -->
     <script>
         // Initialize the application

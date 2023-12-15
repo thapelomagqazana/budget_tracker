@@ -10,6 +10,31 @@ function saveTransactionsToLocalStorage(transactions) {
     localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
+
+// Function to calculate total income
+function calculateTotalIncome()
+{
+    const transactions = getTransactionsFromLocalStorage();
+    return transactions.filter(transaction => transaction.type === "income").reduce((total, transaction) => total + transaction.amount, 0);
+}
+
+
+// Function to calculate total expenses
+function calculateTotalExpenses()
+{
+    const transactions = getTransactionsFromLocalStorage();
+    return transactions.filter(transaction => transaction.type === "expense").reduce((total, transaction) => total + transaction.amount, 0);
+
+}
+
+// Function to calculate the overall budget
+function calculateOverallBudget()
+{
+    const totalIncome = calculateTotalIncome();
+    const totalExpenses = calculateTotalExpenses();
+    return totalIncome - totalExpenses;
+}
+
 // Function to add a transaction
 function addTransaction(name, amount, type) {
     if (!name || isNaN(amount) || amount <= 0) {
@@ -44,9 +69,12 @@ function updateTransactionList() {
         const sortedTransactions = sortTransactions(filteredTransactions, sortOption.value);
 
         const transactionListContainer = document.getElementById('transactionList');
+        const totalIncomeElement = document.getElementById("totalIncome");
+        const totalExpensesElement = document.getElementById("totalExpenses");
+        const overallBudgetElement = document.getElementById("overallBudget");
 
-        if (!transactionListContainer) {
-            console.error("Error: Transaction list container not found.");
+        if (!transactionListContainer || !totalIncomeElement || !totalExpensesElement) {
+            console.error("Error: Required elements not found.");
             return;
         }
 
@@ -62,6 +90,11 @@ function updateTransactionList() {
             `;
             transactionListContainer.appendChild(listItem);
         });
+
+        // Update statistics
+        totalIncomeElement.textContent = calculateTotalIncome();
+        totalExpensesElement.textContent = calculateTotalExpenses();
+        overallBudgetElement.textContent = calculateOverallBudget();
     }
 
 
@@ -97,6 +130,8 @@ function deleteTransaction(index) {
     updateTransactionList();
 }
 
+
+
 // Function to handle form submission
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -125,6 +160,10 @@ module.exports = {
     addTransaction,
     deleteTransaction,
     updateTransactionList,
+    calculateTotalIncome,
+    calculateTotalExpenses,
+    calculateOverallBudget,
     getTransactionsFromLocalStorage,
     saveTransactionsToLocalStorage,
+
 };

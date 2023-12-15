@@ -1,10 +1,7 @@
 // Import your transaction functions and any testing library you're using
 const {
-    addTransaction,
-    updateTransactionList,
-    deleteTransaction,
-    getTransactionsFromLocalStorage,
-    saveTransactionsToLocalStorage,
+  updateTransactionList,
+  saveTransactionsToLocalStorage,
   } = require('../js/transactions');
   
   // Mock localStorage for testing
@@ -35,6 +32,11 @@ const {
       <option value="income">Income</option>
       <option value="expense">Expense</option>
     </select>
+    <div id="statistics">
+        <h2>Total Income: <span id="totalIncome">0</span></h2>
+        <h2>Total Expenses: <span id="totalExpenses">0</span></h2>
+        <h2>Overall Budget: <span id="overallBudget">0</span></h2>
+    </div>
   `;
   
   test('Sort transactions by amount', () => {
