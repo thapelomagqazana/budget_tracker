@@ -22,21 +22,22 @@ const {
   
   // Mock DOM elements
   document.body.innerHTML = `
-    <div id="transactionList"></div>
-    <select id="sortOption" onchange="updateTransactionList()">
-      <option value="default">Default</option>
-      <option value="amount">Amount</option>
-    </select>
-    <select id="filterOption" onchange="updateTransactionList()">
-      <option value="all">All</option>
-      <option value="income">Income</option>
-      <option value="expense">Expense</option>
-    </select>
-    <div id="statistics">
-        <h2>Total Income: <span id="totalIncome">0</span></h2>
-        <h2>Total Expenses: <span id="totalExpenses">0</span></h2>
-        <h2>Overall Budget: <span id="overallBudget">0</span></h2>
-    </div>
+  <div id="transactionList"></div>
+  <select id="sortOption" onchange="updateTransactionList()">
+    <option value="default">Default</option>
+    <option value="amount">Amount</option>
+  </select>
+  <select id="filterOption" onchange="updateTransactionList()">
+    <option value="all">All</option>
+    <option value="income">Income</option>
+    <option value="expense">Expense</option>
+  </select>
+  <div id="statistics">
+    <h2>Total Income: <span id="totalIncome">0</span></h2>
+    <h2>Total Expenses: <span id="totalExpenses">0</span></h2>
+    <h2>Overall Budget: <span id="overallBudget">0</span></h2>
+  </div>
+  <button id="clearTransactionsBtn"></button>
   `;
   
   test('Sort transactions by amount', () => {

@@ -73,10 +73,16 @@ function updateTransactionList() {
         const totalExpensesElement = document.getElementById("totalExpenses");
         const overallBudgetElement = document.getElementById("overallBudget");
 
-        if (!transactionListContainer || !totalIncomeElement || !totalExpensesElement) {
+        const clearTransactionsBtn = document.getElementById('clearTransactionsBtn');
+
+        if (!transactionListContainer || !totalIncomeElement || !totalExpensesElement || !clearTransactionsBtn) {
             console.error("Error: Required elements not found.");
             return;
         }
+
+
+        // Show or hide the clear button based on the presence of transactions
+        clearTransactionsBtn.style.display = transactions.length > 0 ? 'block' : 'none';
 
         transactionListContainer.innerHTML = '';
 
@@ -131,7 +137,6 @@ function deleteTransaction(index) {
 }
 
 
-
 // Function to handle form submission
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -142,6 +147,38 @@ function handleFormSubmit(event) {
 
     addTransaction(transactionName, transactionAmount, transactionType);
     document.getElementById('transactionForm').reset();
+}
+
+// Attach event listener to clear transactions button
+const clearTransactionsBtn = document.getElementById('clearTransactionsBtn');
+if (clearTransactionsBtn) {
+    clearTransactionsBtn.addEventListener('click', handleClearTransactions);
+}
+
+// Function to handle clearing all transactions
+function handleClearTransactions() {
+    // Display a confirmation dialog
+    const confirmClear = confirm("Are you sure you want to clear all transactions?");
+    if (!confirmClear) {
+        return; // User canceled the clear operation
+    }
+
+    // Clear all transactions
+    saveTransactionsToLocalStorage([]);
+    updateTransactionList(); // Update the list after clearing transactions
+}
+
+// Function to handle clearing all transactions
+function handleClearTransactions_(confirmFunction = confirm) {
+    // Display a confirmation dialog
+    const confirmClear = confirmFunction("Are you sure you want to clear all transactions?");
+    if (!confirmClear) {
+        return; // User canceled the clear operation
+    }
+
+    // Clear all transactions
+    saveTransactionsToLocalStorage([]);
+    updateTransactionList(); // Update the list after clearing transactions
 }
 
 // Ensure DOM is fully loaded before updating the transaction list
@@ -165,5 +202,6 @@ module.exports = {
     calculateOverallBudget,
     getTransactionsFromLocalStorage,
     saveTransactionsToLocalStorage,
-
+    handleClearTransactions,
+    handleClearTransactions_,
 };

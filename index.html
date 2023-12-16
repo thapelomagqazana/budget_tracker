@@ -1,75 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <title>Budget Tracker</title>
 </head>
+
 <body>
     <div id="app">
-        <h1>Budget Tracker</h1>
+        <!-- Header Section -->
+        <header>
+            <h1>Budget Tracker</h1>
+        </header>
 
-
-
-        <!-- Form for adding transactions -->
+        <!-- Form Section -->
         <form id="transactionForm">
             <!-- Input fields for transaction details -->
-            <label for="transactionName">Name:</label>
-            <input type="text" id="transactionName" required>
+            <label for="transactionName" class="input-label">Name:</label>
+            <input type="text" id="transactionName" class="rounded-input" required>
 
-            <label for="transactionAmount">Amount:</label>
-            <input type="number" id="transactionAmount" required>
+            <label for="transactionAmount" class="input-label">Amount:</label>
+            <input type="number" id="transactionAmount" class="rounded-input" required>
 
-            <label for="transactionType">Type:</label>
-            <select id="transactionType" required>
+            <label for="transactionType" class="input-label">Type:</label>
+            <select id="transactionType" class="rounded-input" required>
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
             </select>
 
             <!-- Button to submit the form -->
-            <button type="submit">Add Transaction</button>
+            <button type="submit" class="submit-button">Add Transaction</button>
 
-            <!-- Add these select elements to your HTML form -->
-            <label for="sortOption">Sort by:</label>
-            <select id="sortOption" onchange="updateTransactionList()">
-                <option value="default">Default</option>
-                <option value="amount">Amount</option>
-                <!-- Add more sorting options if needed -->
-            </select>
+            <!-- Sort and filter options -->
+            <div class="form-options">
+                <label for="sortOption" class="input-label">Sort by:</label>
+                <select id="sortOption" class="rounded-input" onchange="updateTransactionList()">
+                    <option value="default">Default</option>
+                    <option value="amount">Amount</option>
+                    <!-- Add more sorting options if needed -->
+                </select>
 
-            <label for="filterOption">Filter by:</label>
-            <select id="filterOption" onchange="updateTransactionList()">
-                <option value="all">All</option>
-                <option value="income">Income</option>
-                <option value="expense">Expense</option>
-                <!-- Add more filtering options if needed -->
-            </select>
+                <label for="filterOption" class="input-label">Filter by:</label>
+                <select id="filterOption" class="rounded-input" onchange="updateTransactionList()">
+                    <option value="all">All</option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                    <!-- Add more filtering options if needed -->
+                </select>
+            </div>
 
-            <!-- Add transactions list -->
-            <!-- <h2>Income Transactions</h2> -->
-            <div id="transactionList"></div>
+            <!-- Transactions List Section -->
+            <div class="transaction-list" id="transactionList"></div>
 
-
+            <!-- Clear All Button -->
+            <button class="clear-button" id="clearTransactionsBtn">Clear All Transactions</button>
         </form>
-    </div>
-    <!-- Display statistics -->
-    <div id="statistics">
-        <h2>Total Income: <span id="totalIncome">0</span></h2>
-        <h2>Total Expenses: <span id="totalExpenses">0</span></h2>
-        <h2>Overall Budget: <span id="overallBudget">0</span></h2>
+
+        <!-- Statistics Section -->
+        <aside id="statistics">
+            <h2>Total Income: <span id="totalIncome">0</span></h2>
+            <h2>Total Expenses: <span id="totalExpenses">0</span></h2>
+            <h2>Overall Budget: <span id="overallBudget">0</span></h2>
+        </aside>
+
+        <footer>
+            <p>&copy; 2023 Thapelo Magqazana. All rights reserved.</p>
+        </footer>
     </div>
 
-    
-    <!-- Your HTML content goes here -->
     <script src="js/storage.js"></script>
     <script src="js/statistics.js"></script>
     <script src="js/transactions.js"></script>
-    
-    <!-- <script src="bundle.js"></script> -->
-    <script>
-        // Initialize the application
-        // initApp();
-    </script>
 </body>
+
 </html>
