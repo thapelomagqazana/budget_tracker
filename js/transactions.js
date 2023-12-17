@@ -1,4 +1,7 @@
 
+let selectedIndexToDelete;
+let transactionsList;
+
 // Function to get transactions from localStorage
 function getTransactionsFromLocalStorage() {
     const storedTransactions = localStorage.getItem('transactions');
@@ -37,10 +40,7 @@ function calculateOverallBudget()
 
 // Function to add a transaction
 function addTransaction(name, amount, type) {
-    if (!name || isNaN(amount) || amount <= 0) {
-        alert('Please enter valid transaction details.');
-        return;
-    }
+
     // console.log(name, amount, type); // Log the values
     const transactions = getTransactionsFromLocalStorage();
     const transaction = { name, amount, type };
@@ -88,11 +88,12 @@ function updateTransactionList() {
 
         sortedTransactions.forEach((transaction, index) => {
             const listItem = document.createElement('div');
+            listItem.id = 'transaction-item';
             listItem.innerHTML = `
                 <span>${transaction.name}</span>
                 <span>${transaction.amount}</span>
                 <span>${transaction.type}</span>
-                <button onclick="deleteTransaction(${index})">Delete</button>
+                <button class="button-hover" onclick="deleteTransaction(${index})">Delete</button>
             `;
             transactionListContainer.appendChild(listItem);
         });
@@ -124,16 +125,36 @@ function deleteTransaction(index) {
         return;
     }
 
-    // Display a confirmation dialog
-    const confirmDelete = confirm("Are you sure you want to delete this transaction?");
-    if (!confirmDelete)
-    {
-        return; // User canceled the delete operation
-    }
+    selectedIndexToDelete = index;
+    transactionsList = transactions;
 
-    transactions.splice(index, 1);
-    saveTransactionsToLocalStorage(transactions);
+    // Show the delete modal
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.style.display = 'flex';
+
+
+}
+
+// Function to confirm the deletion after modal confirmation
+function confirmDeleteTransaction() {
+    deleteTransaction(selectedIndexToDelete);
+    hideDeleteModal();
+
+    // Remove transaction
+    transactionsList.splice(selectedIndexToDelete, 1);
+    saveTransactionsToLocalStorage(transactionsList);
     updateTransactionList();
+}
+
+// Function to cancel the deletion after modal cancellation
+function cancelDeleteTransaction() {
+    hideDeleteModal();
+}
+
+// Function to hide the delete modal
+function hideDeleteModal() {
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.style.display = 'none';
 }
 
 
@@ -141,11 +162,36 @@ function deleteTransaction(index) {
 function handleFormSubmit(event) {
     event.preventDefault();
 
-    const transactionName = document.getElementById("transactionName").value;
-    const transactionAmount = parseFloat(document.getElementById('transactionAmount').value);
+    const transactionNameInput = document.getElementById("transactionName");
+    const transactionAmountInput = document.getElementById('transactionAmount');
+
+    const transactionName = transactionNameInput.value;
+    const transactionAmount = parseFloat(transactionAmountInput.value);
     const transactionType = document.getElementById('transactionType').value;
 
+    if (!transactionName || isNaN(transactionAmount) || transactionAmount <= 0) {
+        alert('Please enter valid transaction details.');
+        // Add validation classes
+        transactionNameInput.classList.add('invalid-input');
+        transactionAmountInput.classList.add('invalid-input');
+        return;
+    }
+
+    // Reset validation classes
+    transactionNameInput.classList.remove('invalid-input');
+    transactionAmountInput.classList.remove('invalid-input');
+
     addTransaction(transactionName, transactionAmount, transactionType);
+
+    // Apply the animation class
+    const addButton = document.getElementById('addTransactionBtn');
+    addButton.classList.add('form-submit-animation');
+
+    // Remove the animation class after a delay
+    setTimeout(() => {
+        addButton.classList.remove('form-submit-animation');
+    }, 300);
+
     document.getElementById('transactionForm').reset();
 }
 
@@ -192,6 +238,17 @@ if (transactionForm) {
     transactionForm.addEventListener('submit', handleFormSubmit);
 }
 
+// Attach event listener to buttons for click effect
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => {
+    button.addEventListener('mousedown', () => {
+        button.classList.add('button-clicked');
+    });
+    button.addEventListener('mouseup', () => {
+        button.classList.remove('button-clicked');
+    });
+});
+
 // Export for Node.js environment
 module.exports = {
     addTransaction,
@@ -204,4 +261,7 @@ module.exports = {
     saveTransactionsToLocalStorage,
     handleClearTransactions,
     handleClearTransactions_,
+    confirmDeleteTransaction,
+    cancelDeleteTransaction,
+    hideDeleteModal,
 };

@@ -20,31 +20,31 @@
         <form id="transactionForm">
             <!-- Input fields for transaction details -->
             <label for="transactionName" class="input-label">Name:</label>
-            <input type="text" id="transactionName" class="rounded-input" required>
+            <input type="text" id="transactionName" class="rounded-input input-hover" required>
 
             <label for="transactionAmount" class="input-label">Amount:</label>
-            <input type="number" id="transactionAmount" class="rounded-input" required>
+            <input type="number" id="transactionAmount" class="rounded-input input-hover" required>
 
             <label for="transactionType" class="input-label">Type:</label>
-            <select id="transactionType" class="rounded-input" required>
+            <select id="transactionType" class="rounded-input input-hover" required>
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
             </select>
 
             <!-- Button to submit the form -->
-            <button type="submit" class="submit-button">Add Transaction</button>
+            <button type="submit"  id="addTransactionBtn" class="submit-button button-hover">Add Transaction</button>
 
             <!-- Sort and filter options -->
             <div class="form-options">
                 <label for="sortOption" class="input-label">Sort by:</label>
-                <select id="sortOption" class="rounded-input" onchange="updateTransactionList()">
+                <select id="sortOption" class="rounded-input input-hover" onchange="updateTransactionList()">
                     <option value="default">Default</option>
                     <option value="amount">Amount</option>
                     <!-- Add more sorting options if needed -->
                 </select>
 
                 <label for="filterOption" class="input-label">Filter by:</label>
-                <select id="filterOption" class="rounded-input" onchange="updateTransactionList()">
+                <select id="filterOption" class="rounded-input input-hover" onchange="updateTransactionList()">
                     <option value="all">All</option>
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
@@ -60,15 +60,22 @@
         </form>
 
         <!-- Statistics Section -->
-        <aside id="statistics">
+        <aside id="statistics" class="fade-in">
             <h2>Total Income: <span id="totalIncome">0</span></h2>
             <h2>Total Expenses: <span id="totalExpenses">0</span></h2>
             <h2>Overall Budget: <span id="overallBudget">0</span></h2>
         </aside>
 
-        <footer>
-            <p>&copy; 2023 Thapelo Magqazana. All rights reserved.</p>
-        </footer>
+        <!-- Modal for delete confirmation -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to delete this transaction?</p>
+                <button onclick="confirmDeleteTransaction()" class="button-hover">Yes</button>
+                <button onclick="cancelDeleteTransaction()" class="button-hover">Cancel</button>
+            </div>
+        </div>
+
+        
     </div>
 
     <script src="js/storage.js"></script>
