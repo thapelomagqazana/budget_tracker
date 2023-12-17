@@ -184,14 +184,6 @@ form {
     display: none; /* Hidden by default */
 }
 
-.clear-button:hover {
-    background-color: #219653; /* Darker color on hover */
-}
-
-/* #transactionForm {
-    text-align: center;
-} */
-
 /* Responsive Design */
 @media (max-width: 768px) {
     form {

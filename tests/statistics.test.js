@@ -69,22 +69,5 @@ const {
       const overallBudget = calculateOverallBudget(transactions);
       expect(overallBudget).toBe(1100); // Assuming the sampleTransactions overall budget is 1100
     });
-  
-    // // Integration test for updating statistics in UI
-    // test('Updates statistics in UI correctly', () => {
-    //   document.body.innerHTML = `
-    //     <div id="totalIncome">0</div>
-    //     <div id="totalExpenses">0</div>
-    //     <div id="overallBudget">0</div>
-    //   `;
-  
-    //   // Assuming you have functions to update the UI with the calculated statistics
-    //   updateTransactionList();
-    //   updateStatisticsInUI();
-  
-    //   expect(document.getElementById('totalIncome').textContent).toBe('2000');
-    //   expect(document.getElementById('totalExpenses').textContent).toBe('900');
-    //   expect(document.getElementById('overallBudget').textContent).toBe('1100');
-    // });
   });
   
